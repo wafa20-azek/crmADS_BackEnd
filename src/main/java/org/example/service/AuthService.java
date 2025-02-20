@@ -57,7 +57,7 @@ public class AuthService {
         Cookie cookie = new Cookie("JWT", token);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24);
+        cookie.setMaxAge(60 );
 
         response.addCookie(cookie);
 
@@ -67,15 +67,14 @@ public class AuthService {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("JWT".equals(cookie.getName())) {  // Fix cookie name
+                if ("JWT".equals(cookie.getName())) {
                     cookie.setValue("");
-                    cookie.setMaxAge(5);  // Expire the cookie immediately
+                    cookie.setMaxAge(5);
                     cookie.setHttpOnly(true);
                     cookie.setPath("/");
 
-                    // Add SameSite=None if cross-origin is used
-                    cookie.setDomain("localhost");  // Optional, to ensure proper scope
-                    cookie.setSecure(false); // Use false for local dev (ensure using HTTPS in prod)
+                    cookie.setDomain("localhost");
+                    cookie.setSecure(false);
 
                     response.addCookie(cookie);
                     break;

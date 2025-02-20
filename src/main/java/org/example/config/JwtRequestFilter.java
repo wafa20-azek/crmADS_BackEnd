@@ -34,7 +34,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("JWT".equals(cookie.getName())) {  // Fix cookie name
+                if ("JWT".equals(cookie.getName())) {
                     token = cookie.getValue();
                     break;
                 }
@@ -45,13 +45,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String username = jwtUtil.extractEmail(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            // If the user is valid and the token is valid, authenticate the user
+
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            // Set the authentication object in the security context
+
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 

@@ -13,7 +13,6 @@ import java.util.function.Function;
 public class JwtUtil {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
-    // Generate a JWT token based on the email
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -23,7 +22,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract the email from the token
     public String extractEmail(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
@@ -32,7 +30,6 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    // Extract expiration date from the token
     public Date extractExpiration(String token) {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
@@ -41,13 +38,11 @@ public class JwtUtil {
                 .getExpiration();
     }
 
-    // Validate the token (check expiration and if it matches the email)
     public boolean isTokenValid(String token) {
         String email = extractEmail(token);
         return (email != null && !isTokenExpired(token));
     }
 
-    // Check if the token is expired
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
