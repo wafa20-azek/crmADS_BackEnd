@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.repository.contactRepository;
+import org.example.repository.ContactRepository;
 
-public interface IContactService extends contactRepository {
+public interface IContactService extends ContactRepository {
 }

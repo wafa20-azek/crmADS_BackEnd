@@ -2,7 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.model.Contact;
-import org.example.repository.contactRepository;
+import org.example.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class contactService implements IContactService{
-    final contactRepository contactRepository;
+    final ContactRepository contactRepository;
     @Override
     public <S extends Contact> S save(S contact) {
         return contactRepository.save(contact);

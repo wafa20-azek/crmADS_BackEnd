@@ -2,17 +2,16 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.model.Activity;
-import org.example.repository.activityRepository;
+import org.example.repository.ActivityRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class activityService implements IActivityService{
-    final activityRepository activityRepository;
+    final ActivityRepository activityRepository;
 
     @Override
     public List<Activity> findActivitiesByContactId(Long contactId) {
