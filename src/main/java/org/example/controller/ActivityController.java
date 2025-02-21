@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/activity")

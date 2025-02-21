@@ -32,12 +32,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and()  // Enable CORS
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/register", "/auth/login").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/auth/logout").permitAll() // Allow OPTIONS request
-                .antMatchers("/auth/logout").authenticated()
-                .anyRequest().authenticated()
+                .antMatchers("/activity/**", "/contact/**", "/auth/logout").authenticated()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

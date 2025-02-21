@@ -55,9 +55,12 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(request.getEmail());
         Cookie cookie = new Cookie("JWT", token);
-        cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(60 );
+
+        cookie.setDomain("localhost");
+        cookie.setSecure(false);
+
+        cookie.setMaxAge(60*60 );
 
         response.addCookie(cookie);
 
@@ -70,7 +73,6 @@ public class AuthService {
                 if ("JWT".equals(cookie.getName())) {
                     cookie.setValue("");
                     cookie.setMaxAge(5);
-                    cookie.setHttpOnly(true);
                     cookie.setPath("/");
 
                     cookie.setDomain("localhost");
