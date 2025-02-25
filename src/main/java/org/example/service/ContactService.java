@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class contactService implements IContactService{
+public class ContactService implements IContactService{
     final ContactRepository contactRepository;
     @Override
     public <S extends Contact> S save(S contact) {

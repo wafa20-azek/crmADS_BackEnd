@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class activityService implements IActivityService{
+public class ActivityService implements IActivityService{
     final ActivityRepository activityRepository;
 
     @Override
