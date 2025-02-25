@@ -16,8 +16,8 @@ public class Contact {
     private Long id;
    private String firstName;
     private String lastName;
-    @OneToOne
-    private Contact  contactOwner;
+    @OneToOne(cascade = {CascadeType.REMOVE})
+    private User  contactOwner;
     private String email;
     private String phone;
     private String company;

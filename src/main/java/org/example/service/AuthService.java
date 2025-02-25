@@ -7,10 +7,14 @@ import org.example.dto.RegisterRequest;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -86,5 +90,18 @@ public class AuthService {
 
         return new AuthResponse("Logout successful");
     }
-
+   public User getCurrentUser( HttpServletRequest request){
+        User user=null;
+       Cookie[] cookies = request.getCookies();
+       if (cookies != null) {
+           for (Cookie cookie : cookies) {
+               if ("JWT".equals(cookie.getName())) {
+                  String email=jwtUtil.extractEmail(cookie.getValue());
+                   user=userRepository.findByEmail(email).get();
+                   break;
+               }
+           }
+       }
+        return user;
+   }
 }

@@ -8,6 +8,7 @@ import org.example.model.User;
 import org.example.service.AuthService;
 import org.example.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,4 +46,11 @@ public class AuthController {
         AuthResponse authResponse = authService.logOut(request,response);
         return ResponseEntity.ok(authResponse);
     }
+    @GetMapping("/currentUser")
+    public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
+        User user = authService.getCurrentUser(request);
+
+        return ResponseEntity.ok(user);
+    }
+
 }

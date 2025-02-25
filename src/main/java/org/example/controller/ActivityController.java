@@ -54,11 +54,6 @@ public class ActivityController {
         return activityService.save(activity);
     }
 
-    @PutMapping("/updateActivity")
-    public Activity updateActivity(@RequestBody Activity u) {
-        return activityService.save(u);
-
-    }
 
 
     @DeleteMapping("/deleteActivity/{id}")
