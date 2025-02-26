@@ -16,7 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -44,14 +43,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (token != null && jwtUtil.isTokenValid(token)) {
             String username = jwtUtil.extractEmail(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
-
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 

@@ -15,10 +15,8 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Timestamp date;
-
     @Enumerated(EnumType.STRING)
     private ActivityType activityType;
-
     @ManyToMany
     @JoinTable(
             name = "activity_participants",
@@ -26,10 +24,8 @@ public class Activity {
             inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
     private Set<Contact> participants;
-
     private String subject;
     private String note;
-
     @ElementCollection
     private Set<String> documents;
 }

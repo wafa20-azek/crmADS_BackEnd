@@ -6,20 +6,14 @@ import org.example.dto.AuthResponse;
 import org.example.dto.RegisterRequest;
 import org.example.model.User;
 import org.example.repository.UserRepository;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -43,10 +37,8 @@ public class AuthService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setUsername(request.getUsername());
         userRepository.save(user);
-
-        String token = jwtUtil.generateToken(user.getEmail());
-
         return new AuthResponse("User registered successfully");
     }
 
@@ -60,12 +52,9 @@ public class AuthService {
         String token = jwtUtil.generateToken(request.getEmail());
         Cookie cookie = new Cookie("JWT", token);
         cookie.setPath("/");
-
         cookie.setDomain("localhost");
         cookie.setSecure(false);
-
         cookie.setMaxAge(60*60 );
-
         response.addCookie(cookie);
 
         return new AuthResponse("Login successful");
@@ -76,12 +65,10 @@ public class AuthService {
             for (Cookie cookie : cookies) {
                 if ("JWT".equals(cookie.getName())) {
                     cookie.setValue("");
-                    cookie.setMaxAge(5);
+                    cookie.setMaxAge(0);
                     cookie.setPath("/");
-
                     cookie.setDomain("localhost");
                     cookie.setSecure(false);
-
                     response.addCookie(cookie);
                     break;
                 }

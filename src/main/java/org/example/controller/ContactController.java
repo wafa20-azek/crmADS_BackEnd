@@ -3,10 +3,8 @@ package org.example.controller;
 import lombok.AllArgsConstructor;
 import org.example.model.Contact;
 import org.example.service.IContactService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Table;
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 @AllArgsConstructor
